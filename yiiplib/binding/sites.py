@@ -3,6 +3,7 @@ import numpy as np
 from numpy.lib.function_base import _ureduce
 import xarray as xr
 from MDAnalysis.analysis.rms import RMSD
+from pmda import rdf
 
 def cal_site_rmsd(u, ref, filename):
     siteA = 'resid 47 51 159 155'
@@ -51,9 +52,9 @@ def cal_site_rmsd(u, ref, filename):
     da.to_netcdf(filename)
 
 def cal_rdf(zn_ids, u):
-    siteA = 'resid 47 51 159 155'
+    siteA = u.select_atoms('(name OD1 OD2 and resid 47 51 159) or (name NE2 and resid 155)')
     siteB = 'resid 70 73 77'
     siteC = 'resid 285 263 287'
     siteD = 'resid 234 235 250 287'
 
-    
+    AA = [u.select_atoms('bynum {}'.format(zn_ids[0])), ]
