@@ -1,6 +1,5 @@
 import MDAnalysis as mda
 import numpy as np
-from numpy.lib.function_base import _ureduce
 import xarray as xr
 from MDAnalysis.analysis.rms import RMSD
 from pmda import rdf
@@ -51,10 +50,18 @@ def cal_site_rmsd(u, ref, filename):
                           time=AA.rmsd[:,1])
     da.to_netcdf(filename)
 
-def cal_rdf(zn_ids, u):
+def cal_rdf_A(zn_ids, u, n, filename):
     siteA = u.select_atoms('(name OD1 OD2 and resid 47 51 159) or (name NE2 and resid 155)')
-    siteB = 'resid 70 73 77'
-    siteC = 'resid 285 263 287'
-    siteD = 'resid 234 235 250 287'
+    AA_atom = siteA.select_atoms('segid A')
+    AB_atom = siteA.select_atoms('segid B')
+    sitename = ["{}{}{}".format(mda.lib.util.convert_aa_code(atom.resname), atom.resid, atom.name) for atom in AA_atom]
+    AA = [u.select_atoms('bynum {}'.format(zn_ids[0]+1)), AA_atom]
+    AB = [u.select_atoms('bynum {}'.format(zn_ids[1]+1)), AB_atom]
+    RDF = rdf.InterRDF_s(u, [AA, AB], nbins=300, range=(0, 3.0))
+    RDF.run(n_blocks=n, n_jobs=n)
 
-    AA = [u.select_atoms('bynum {}'.format(zn_ids[0])), ]
+    da = xr.DataArray([RDF.rdf[0][0], RDF.rdf[1][0]], dims=['ZN', 'site', 'distance'])
+    da = da.assign_coords(ZN=zn_ids,
+                          site=sitename,
+                          distance=RDF.bins)
+    da.to_netcdf(filename)
