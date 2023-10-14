@@ -8,8 +8,9 @@ This repository contains code used for some of the computational aspects of the 
 
 * Adel Hussein, Shujie Fan, Maria Lopez-Redondo, Ian Kenney, Xihui Zhang, Oliver Beckstein, and David L. Stokes. Energy coupling and stoichiometry of Zn<sup>2+</sup>/H<sup>+</sup> antiport by the cation diffusion facilitator YiiP. eLife, Apr 2023. doi: https://doi.org/10.7554/elife.87167.1
 
+Archives:
 * Raw data files are archived in OSF project https://osf.io/r95qu (DOI [10.17605/OSF.IO/Y8BA2](https://doi.org/10.17605/OSF.IO/Y8BA2))
-* This code repository is archived in Zenodo under DOI [10.5281/zenodo.8357619](doi.org/10.5281/zenodo.8357619)
+* This code repository is archived in Zenodo under DOI [10.5281/zenodo.8357619](https://doi.org/10.5281/zenodo.8357619)
 
 ## The following packages are required to use these scripts.
 * [NumPy](https://numpy.org/)
@@ -20,7 +21,7 @@ This repository contains code used for some of the computational aspects of the 
 * [seaborn](https://seaborn.pydata.org/)
 * [pandas](https://pandas.pydata.org/)
 * [multibind](https://github.com/Becksteinlab/multibind)
-* [CpHMD-Analysis](https://gitlab.com/shenlab-amber-cphmd/cphmd-analysis)
+* [CpHMD-Analysis](https://gitlab.com/shenlab-amber-cphmd/cphmd-analysis) (see https://github.com/Hendejac/CpHMD-Analysis for the original `cphmdanalysis.py` script/module)
 
 ## analysis
 `angle.py`, `rms.py`, and `R210_D72.py` are python scripts used to analyze equilibrium simulations, taking `md.gro` and `md[].xtc` as inputs, while the reference for this analysis is derived from the Protein Data Bank, accessible at https://www.rcsb.org/structure/5VRF.
